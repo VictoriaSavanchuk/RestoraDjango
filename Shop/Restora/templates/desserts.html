@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}   
+{% load static %}
+
+<div class="products-container">
+    {% for dessert in products %}
+        {% if forloop.counter0|divisibleby:2 %}
+            <div class="row">
+        {% endif %}
+       
+        <div class="product-card">
+            <ul>
+                <li><a href="javascript:PopUpShow('popup{{ forloop.counter }}')">     <!--при нажатии на изображение открывается popup карточка-->
+                    {% if dessert.image %}
+                        <img class="product-image" src="{{ dessert.image.url }}">
+                    {% else %}
+                        <p>No image</p>
+                    {% endif %}
+                    </a>
+                </li>
+                <li>
+                    <p class ="product-name">{{dessert.name}}</p>
+                </li>
+                <li>
+                    <p class ="product-description"> 
+                        {% for ingredient in dessert.ingredients %}
+                          {{ ingredient }}{% if not forloop.last %},{% endif %}    <!--переменную forloop.last -булевое значение True для последнего элемента в цикле for. -->
+                        {% endfor %}.
+                     </p>
+                </li>
+                <li class="in-bag"><p class="product-price" >{{dessert.price}} BYN</p>
+                    
+                    <form action="{% url "cart:cart_add" dessert.id %}" method="post">
+                        {{ cart_product_form }}
+                        {% csrf_token %}
+                        <input class="button-in-bag" type="submit" value="В корзину">    <!--onclick="yaCounter94548736.reachGoal('add_cart'); return true;-->
+                    </form>
+                </li>
+        </ul>
+
+    </div>
+    <div class="product-card-popup" id="popup{{ forloop.counter }}">    <!--{{ forloop.counter }}-идентификаторы id для попапов и функций PopUpShow() и PopUpHide(). Это обеспечит уникальность идентификаторов и связанных функций для каждого попапа-->
+        <div class="b-popup-content">
+        <a href="javascript:PopUpHide('popup{{ forloop.counter }}')">❌</a>
+        <ul>
+            <li>
+                {% if dessert.image %}
+                    <img class="product-image" src="{{ dessert.image.url }}">
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
+               
+            </li>
+            <li>
+                <p class ="product-name">{{dessert.name}}</p>
+            </li>
+            <li>
+                <p class ="product-description"> 
+                    {% for ingredient in dessert.ingredients %}
+                      {{ ingredient }}{% if not forloop.last %},{% endif %}    <!--переменную forloop.last -булевое значение True для последнего элемента в цикле for. -->
+                    {% endfor %}.
+                 </p>
+            </li>
+            <li class="in-bag"><p class="product-price" >{{dessert.price}} BYN</p>
+                <form action="{% url "cart:cart_add" dessert.id %}" method="post">
+                    {{ cart_product_form }} 
+                    {% csrf_token %}
+                    <input class="button-in-bag" type="submit" value="В корзину">    <!--onclick="yaCounter94548736.reachGoal('add_cart'); return true;-->
+                </form>
+            </li>
+    </ul>
+    
+    </div>
+</div>
+        {% if forloop.counter0|add:1|divisibleby:2 or forloop.last %}
+    </div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+ </div> 
+
+{% include 'pagination.html' %}   <!-- Это способ “включить” один шаблон в другой.-->
+
+<!--подключение popup card-->
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Скрыть PopUp при загрузке страницы    
+        {% for salad in products %}
+        PopUpHide('popup{{ forloop.counter }}');
+        {% endfor %}
+        
+    });
+    //Функция отображения PopUp
+    function PopUpShow(popupId){
+        $("#" + popupId).show();
+    }
+    //Функция скрытия PopUp
+    function PopUpHide(popupId){
+        $("#" + popupId).hide();
+    }
+</script>
+
+{% endblock %}   

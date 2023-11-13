@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block content %}   
+{% load static %}
+
+<div class="products-container">
+    {% for salad in products %}
+        {% if forloop.counter0|divisibleby:2 %}
+            <div class="row">
+        {% endif %}
+       
+        <div class="product-card">
+            <ul>
+                <li><a href="javascript:PopUpShow('popup{{ forloop.counter }}')">     <!--при нажатии на изображение открывается popup карточка-->
+                    {% if salad.image %}
+                        <img class="product-image" src="{{ salad.image.url }}">
+                    {% else %}
+                        <p>No image</p>
+                    {% endif %}
+                    </a>
+                </li>
+                <li>
+                    <p class ="product-name">{{salad.name}}</p>
+                </li>
+                <li>
+                    <p class ="product-description"> 
+                        {% for ingredient in salad.ingredients %}
+                          {{ ingredient }}{% if not forloop.last %},{% endif %}    <!--переменную forloop.last -булевое значение True для последнего элемента в цикле for. -->
+                        {% endfor %}.
+                     </p>
+                </li>
+                <li class="in-bag"><p class="product-price" >{{salad.price}} BYN</p>
+                    
+                    <form action="{% url "cart:cart_add" salad.id %}" method="post">
+                        {{ cart_product_form }}
+                        {% csrf_token %}
+                        <input class="button-in-bag" type="submit" value="В корзину">    
+                    </form>
+                </li>
+        </ul>
+
+    </div>
+    <div class="product-card-popup" id="popup{{ forloop.counter }}">    <!--{{ forloop.counter }}-идентификаторы id для попапов и функций PopUpShow() и PopUpHide(). Это обеспечит уникальность идентификаторов и связанных функций для каждого попапа-->
+        <div class="b-popup-content">
+        <a href="javascript:PopUpHide('popup{{ forloop.counter }}')">❌</a>
+        <ul>
+            <li>
+                {% if salad.image %}
+                    <img class="product-image" src="{{ salad.image.url }}">
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
+               
+            </li>
+            <li>
+                <p class ="product-name">{{salad.name}}</p>
+            </li>
+            <li>
+                <p class ="product-description"> 
+                    {% for ingredient in salad.ingredients %}
+                      {{ ingredient }}{% if not forloop.last %},{% endif %}    <!--переменную forloop.last -булевое значение True для последнего элемента в цикле for. -->
+                    {% endfor %}.
+                 </p>
+            </li>
+            <li class="in-bag"><p class="product-price" >{{salad.price}} BYN</p>
+                <form action="{% url "cart:cart_add" salad.id %}" method="post">
+                    {{ cart_product_form }} 
+                    {% csrf_token %}
+                    <input class="button-in-bag" type="submit" value="В корзину">    <!--onclick="yaCounter94548736.reachGoal('add_cart'); return true;-->
+                </form>
+            </li>
+    </ul>
+    
+    </div>
+</div>
+        {% if forloop.counter0|add:1|divisibleby:2 or forloop.last %}
+    </div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+ </div> 
+
+{% include 'pagination.html' %}   <!-- Это способ “включить” один шаблон в другой.-->
+
+<!--подключение popup card-->
+<script src="http://code.jquery.com/jquery-2.0.2.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Скрыть PopUp при загрузке страницы    
+        {% for salad in products %}
+        PopUpHide('popup{{ forloop.counter }}');
+        {% endfor %}
+        
+    });
+    //Функция отображения PopUp
+    function PopUpShow(popupId){
+        $("#" + popupId).show();
+    }
+    //Функция скрытия PopUp
+    function PopUpHide(popupId){
+        $("#" + popupId).hide();
+    }
+</script>
+
+{% endblock %}   
+{% comment %} forloop.counter0 (индекс цикла, начиная с 0) и проверяем, делится ли он на 2 
+с помощью divisibleby:2. Если это так, мы открываем новый блок <div class="row"> 
+для нового ряда салатов. После каждого четвертого салата или если это последний 
+салат, мы закрываем блок <div class="row"> и добавляем разделитель <hr>,
+     если это не последний салат. {% endcomment %}
+

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}<TITLE>
+    Ваш заказ - Restora</TITLE>
+{% endblock %}
+{% block content %}
+{% load static %}
+    <div class="block-cart">
+    <h1 class="cart-text">Ваш заказ</h1>
+    <table class="cart">
+        <tbody>
+        {% for item in cart %}  <!-- {'dish': <Dishes: Салат Цезарь>, 'price': Decimal('17.00'), 'quantity': 4, 'total_price': Decimal('68.00')}-->
+            <tr class="cart-info">
+                <td> <img src="{{ item.dish.image.url }}"></td> 
+                <td><strong>{{ item.dish.name }}</strong></td>
+                <td><a href="{% url 'cart:cart_reduce' item.dish.id %}?quantity={{ item.quantity }}"><svg class="card-icon" width="16" height="16" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" fill="white">
+                   <g>
+                       <path d="M22 11v2h-20v-2h20zm-22-2v6h24v-6h-24z"></path>
+                   </g>
+               </svg></a></td>
+                <td><strong>{{ item.quantity }}</strong></td>
+                <td><a href="{% url 'cart:cart_plus' item.dish.id %}?quantity={{ item.quantity }}"><svg class="card-icon" width="16" height="16" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" fill="white">
+                   <g>
+                       <path d="M13 2v9h9v2h-9v9h-2v-9h-9v-2h9v-9h2zm2-2h-6v9h-9v6h9v9h6v-9h9v-6h-9v-9z"></path>
+                   </g>
+               </svg></a></td>
+                <td><a href="{% url "cart:cart_remove" item.dish.id %}"><svg class="card-icon" width="16" height="16" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" fill="white">
+                   <g>
+                       <path d="M20.197 2.837l.867.867-8.21 8.291 8.308 8.202-.866.867-8.292-8.21-8.23 8.311-.84-.84 8.213-8.32-8.312-8.231.84-.84 8.319 8.212 8.203-8.309zm-.009-2.837l-8.212 8.318-8.31-8.204-3.666 3.667 8.321 8.24-8.207 8.313 3.667 3.666 8.237-8.318 8.285 8.204 3.697-3.698-8.315-8.209 8.201-8.282-3.698-3.697z"></path>
+                   </g>
+               </svg></a></td> 
+               
+                <td class="num">{{ item.price }} BYN</td>
+                <td class="num"><strong>{{ item.total_price }} BYN</strong></td>
+            </tr>
+        {% endfor %}   
+        <tr class="total">
+            <td>Всего к оплате</td>
+            <td colspan="6"></td>
+            <td class="num">{{ cart.get_total_price }} BYN</td>
+        </tr>
+        </tbody>
+    </table>
+        <div class="text-right">
+        
+            <h1><a href="{% url 'home' %}" class="button-light">Продолжить покупки</a></h1>
+             
+            <h1><a href="{% url "orders:order_create" %}" class="button">Оформить заказ</a></h1> 
+                 
+            
+        </div>
+    </div>
+    
+{% endblock %}    

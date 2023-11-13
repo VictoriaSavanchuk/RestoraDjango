@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html> 
+<HTML> 
+  <HEAD> 
+    <meta charset="utf-8">
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+      <meta property="og:url" content="http://127.0.0.1:8000/catalog/home/">
+      <meta property="og:title" content="Restora| Минск | Заказ еды из ресторана">
+      <meta property="description"  content="Основу меню составляют позиции, приготовленные по рецептам Джейми Оливера">
+      <meta property="og:type" content="website">
+      <meta property="og:image" content="http://127.0.0.1:8000/static/Catalog/img/container.jpg">
+      <link rel="canonical" href="http://127.0.0.1:8000/catalog/home/">
+      {% comment %} <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">  {% endcomment %}
+      {% comment %} <meta property="og:site_name" content="Заказ еды из ресторана | Минск | Restaurant"> {% endcomment %}
+      <link rel="icon" href="{% static 'Restora/img/label.png' %}" type="image/jpg">
+    
+      {% block title %}<TITLE>Restora | Минск | Заказ еды из ресторана</TITLE>{% endblock %} 
+      
+      <style>    
+    </style>
+    <link rel="stylesheet" href="{% static 'Restora/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'Restora/css/flickity.css'%}" media="screen">
+  </HEAD> 
+  <BODY>  
+    <div class="beginning">
+        <div class="phone">
+            <div class= "phone-text"><a href="tel:7989">7989</a></div>
+            <div class="phone-logo">
+                <a href="tel:7989"><img src ="{% static 'Restora/img/phone.jpg'%}"></a>
+            </div>
+        </div>
+      
+        <div class="acc-inf">
+            <p>
+                {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                <a href="{% url 'cart:cart_detail' %}"><u>
+                    Количество: {{ total_items }};<br>
+                    Сумма: {{ cart.get_total_price }} BYN</u>
+                </a>
+            {% else %}
+                Корзина пуста.
+            {% endif %}
+        {% endwith %}
+            </p>
+            <div class="bag">
+                <a href = "{% url 'cart:cart_detail' %}"><img src ="{% static 'Restora/img/cart.jpg'%}"></a>
+            </div>
+            <div class="login"> 
+                <img src ="{% static 'Restora/img/login.jpg'%}">
+            </div>
+        </div>
+    </div>
+    <header>
+        <div class="head">
+            <div class="label">
+                <div> 
+                    <img src ="{% static 'Restora/img/label.png'%}">
+                </div>
+                <h1><a href = "{% url 'home' %}">Restora</a></h1>
+            </div>
+            <div class = "navi">
+                <ul class ="menu">МЕНЮ
+                   
+                    <li ><a href = "{% url 'hot_dishes' %}">Горячие блюда </a></li>
+                    <li ><a href = "{% url 'cold_dishes' %}">Холодные блюда</a></li>
+                    <li ><a href = "{% url 'side_dishes' %}">Гарниры</a></li>
+                    <li ><a href = "{% url 'salads' %}">Салаты</a></li> 
+                    <li ><a href = "{% url 'drinkables' %}">Напитки</a></li>
+                    <li ><a href = "{% url 'desserts' %}">Десерты</a></li>
+                </ul>
+                <ul>ДОСТАВКА</ul>
+                <ul><a href = "{% url 'about' %}">О НАС</a></ul>
+                <ul><a href = "{% url 'contacts' %}">КОНТАКТЫ</a></ul>
+                
+            </div>
+        </div>
+    </header>
+ 
+    <div class ="container">
+        {% block content %}
+        {% endblock %}
+    </div> 
+   
+    <footer>
+        <div class="inf">
+            <ul class="foot">КОМПАНИЯ
+                <li><a href = "{% url 'home' %}">МЕНЮ</a></li>
+                <li><a href = "{% url 'about' %}">О НАС</a></li>
+                <li>ДОСТАВКА</li>
+                
+            </ul>
+            <ul class="foot">УСЛУГИ
+                <li>ВАКАНСИИ</li>
+                <li>СТАЖИРОВКА</li>
+              
+            </ul>
+            <ul class="foot"><a href = "{% url 'contacts' %}">КОНТАКТЫ 
+                7989</a>
+                <li>ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</li>
+                <li>РЕШЕНИЯ</li>
+            </ul>
+            <div class="foot-text"><a href ="https://t.me/SuperRestik_bot"> ТЕПЕРЬ МЫ ЕСТЬ<br>
+                 В ТЕЛЕГРАМ
+                
+                <div class ="img-tel"> 
+                    <svg class="card-icon" width="32" height="32" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" fill="white">
+                       <g>
+                           <path d="M12,0c-6.627,0 -12,5.373 -12,12c0,6.627 5.373,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.627 -5.373,-12 -12,-12Zm0,2c5.514,0 10,4.486 10,10c0,5.514 -4.486,10 -10,10c-5.514,0 -10,-4.486 -10,-10c0,-5.514 4.486,-10 10,-10Zm2.692,14.889c0.161,0.115 0.368,0.143 0.553,0.073c0.185,-0.07 0.322,-0.228 0.362,-0.42c0.435,-2.042 1.489,-7.211 1.884,-9.068c0.03,-0.14 -0.019,-0.285 -0.129,-0.379c-0.11,-0.093 -0.263,-0.12 -0.399,-0.07c-2.096,0.776 -8.553,3.198 -11.192,4.175c-0.168,0.062 -0.277,0.223 -0.271,0.4c0.006,0.177 0.125,0.33 0.296,0.381c1.184,0.354 2.738,0.847 2.738,0.847c0,0 0.725,2.193 1.104,3.308c0.047,0.139 0.157,0.25 0.301,0.287c0.145,0.038 0.298,-0.001 0.406,-0.103c0.608,-0.574 1.548,-1.461 1.548,-1.461c0,0 1.786,1.309 2.799,2.03Zm-5.505,-4.338l0.84,2.769l0.186,-1.754c0,0 3.243,-2.925 5.092,-4.593c0.055,-0.048 0.062,-0.13 0.017,-0.188c-0.045,-0.057 -0.126,-0.071 -0.188,-0.032c-2.143,1.368 -5.947,3.798 -5.947,3.798Z"></path>
+                       </g>
+                   </svg>
+                </a>
+                </div>
+            </div>
+        </div>
+        <div class="legend">
+            <p>RESTAURANT @ 2023 PRIVACY POLICY</p>
+            <p>EMAIL NEWSLETTER SIGNUP  </p>
+        </div>
+    </footer>
+<!--Подключаю слайдер-->
+<script src="{% static 'Restora/js/flickity.pkgd.js' %}"></script>
+<script>
+    var flkty = new Flickity('.main-gallery', {
+        // options
+        cellAlign: 'left',
+        contain: true,
+        autoPlay: 3000,
+        selectedAttraction: 0.01,
+        friction: 0.15,
+        pauseAutoPlayOnHover: false
+    });
+</script>
+
+
+</BODY> 
+</HTML> 

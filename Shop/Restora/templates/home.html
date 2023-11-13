@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}<TITLE>Главная | Restora</TITLE>{% endblock %} 
+{% block content %}   
+{% load static %}
+
+<div class="container">
+  
+  <div class="main-gallery">
+    <div class="gallery-cell">
+        <img class="carousel-cell-image" src="{% static 'Restora/img/salad.jpg' %}" alt="">
+        <div class="text"><a href = "{% url 'salads' %}">Салаты</a></div> 
+    </div>
+    <div class="gallery-cell">
+        <img class="carousel-cell-image" src="{% static 'Restora/img/cold-dishes.jpg '%}" alt="">
+        <div class="text"><a href = "{% url 'cold_dishes' %}">Холодные Блюда</a></div>
+    </div>
+      
+    
+    <div class="gallery-cell">
+        <img class="carousel-cell-image" src="{% static 'Restora/img/hot-dishes.jpg' %}" alt="">
+        <div class="text"><a href = "{% url 'hot_dishes' %}">Горячие Блюда</a></div>
+    </div>
+    <div class="gallery-cell">
+        <img class="carousel-cell-image" src="{% static 'Restora/img/garnirs.jpg' %}" alt="">
+        <div class="text"><a href = "{% url 'side_dishes' %}">Гарниры</a></div>
+    </div>
+    <div class="gallery-cell">
+      <img class="carousel-cell-image" src="{% static 'Restora/img/desert.jpg' %}" alt="">
+      <div class="text"><a href = "{% url 'desserts' %}">Десерты</a></div>
+  </div>
+  <div class="gallery-cell">
+    <img class="carousel-cell-image" src="{% static 'Restora/img/drinkables.jpg' %}" alt="">
+    <div class="text"><a href = "{% url 'drinkables' %}">Напитки</a></div>
+</div>
+</div>
+
+
+{% endblock %}   

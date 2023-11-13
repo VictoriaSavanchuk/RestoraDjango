@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}<TITLE>О нас | Restora</TITLE>{% endblock %} 
+{% block content %}   
+{% load static %}
+
+<div class="about">
+    <h1>НАШИ ПРЕИМУЩЕСТВА</h1>
+    <div class="advantages">
+    <div class="block">
+        <div class="block-inf">
+            <div class="icon"><img src="{% static 'Restora/img/01.png'%}"></div>
+            <div class="advantages-text">
+                <h2>100% ГАРАНТИЯ КАЧЕСТВА</h2>
+                <p>Вам не понравилось наше блюдо? Мы готовы вернуть вам деньги*. Но мы будем очень признательны, если вы решите дать нам возможность исправиться и согласитесь на бесплатную замену блюда свежеприготовленного.</p>
+            </div>
+        </div>
+        <div class="block-inf">
+            <div class="icon"><img src="{% static 'Restora/img/05.png'%}"></div>
+            <div class="advantages-text">
+                <h2>ДОСТАВЛЯЕМ ГОРЯЧИМ</h2>
+                <p>Мы доставляем заказ только в термосумках. Нам очень важно, чтобы блюдо передавалось Вам такой температуры, при которой сохраняются все его вкусовые качества. По этой же причине мы ограничили зону доставки.</p>
+            </div>
+        </div>
+        <div class="block-inf">
+            <div class="icon"><img src="{% static 'Restora/img/04.png'%}"></div>
+            <div class="advantages-text">
+                <h2>ПРИГОТОВЛЕНО С ЛЮБОВЬЮ</h2>
+                <p>А это значит:
+                    - мы любим свое дело и работаем с радостью;
+                    - продукция нашей компании напоминает лакомства, приготовленные родной бабушкой для своих внуков;
+                    - наши повара любят свою профессию и готовят с душой;</p>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-inf">
+            <div class="icon"><img src="{% static 'Restora/img/02.png'%}"></div>
+            <div class="advantages-text">
+                <h2> СТАНДАРТ КАЧЕСТВА</h2>
+                <p>Мы готовим только из свежих и качественных ингредиентов. Только качественные продукты обеспечивают непревзойденный вкус наших блюд. Качество и свежесть продуктов проверяются ежедневно.</p>
+            </div>
+        </div>
+        <div class="block-inf">
+            <div class="icon"><img src="{% static 'Restora/img/02.png'%}"></div>
+            <div class="advantages-text">    
+                <h2>ВСЕГДА НАЙДЕМ СДАЧУ</h2>
+                <p>У курьера всегда найдется сдача. Даже с 5 рублей! Но не забудьте, конечно, об этом сказать оператору.</p>
+            </div>
+        </div>
+        <div class="block-inf">
+            <div class="icon"><img src="{% static 'Restora/img/06.png'%}"></div>
+            <div class="advantages-text">    
+                <h2>ЗАБОТИМСЯ О ВАШИХ ВКУСАХ</h2>
+                <p>Вы можете убрать любой ингредиент по Вашему желанию. Не любите лук? Наши повара позаботятся о том, чтобы его не было в Вашем блюде!</p>
+            </div>
+        </div>
+        <div class="block-inf">
+            <div class="icon"><img src="{% static 'Restora/img/08.png'%}"></div>
+            <div class="advantages-text">   
+                <h2>ТВОРИТЬ ДОБРО ВМЕСТЕ!</h2>
+                <p>Дарим тепло и заботу! 1 рубль от каждого заказанного вами блюда направляется на благотворительные цели.
+                <br>
+                <br>
+                    Оформляя себе заказ, вы оказываете помощь тем, кто действительно в ней нуждается.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}   
